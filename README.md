@@ -17,7 +17,7 @@ Install Rust, preferably nightly. See https://www.rust-lang.org/tools/install . 
 ### Embassy
 
 - follow installation instructions at https://embassy.dev/book/dev/getting_started.html .
-- install probe-run ```cargo install probe-run --features cli``` .
+- install probe-run, both the necessary dependencies and the package itself: ```cargo install probe-run --features cli``` . Note that you may need to install the newest probe-rs in the newest version if the chip you use is very recent and not yet included in the probe-rs current release: ```https://github.com/probe-rs/probe-rs```.
 - follow the installation instruction.
 
 ### Check that everything works
@@ -53,10 +53,21 @@ The following debug probes were found:
 
 ```
 kzm@kzm-bpq:~/Desktop/Git/embassy/examples/stm32u5/src/bin$ cargo run --bin blinky --release
-    Finished release [optimized + debuginfo] target(s) in 0.16s
-     Running `probe-rs run --chip STM32U585AIIx /home/kzm/Desktop/Git/embassy/examples/stm32u5/target/thumbv8m.main-none-eabihf/release/blinky`
-     Erasing sectors ✔ [00:00:00] [##################################################################################################################################] 24.00 KiB/24.00 KiB @ 271.88 KiB/s (eta 0s )
- Programming pages   ✔ [00:00:00] [###################################################################################################################################] 20.00 KiB/20.00 KiB @ 34.74 KiB/s (eta 0s )    Finished in 0.69s
-Error: This capability has not yet been implemented for this architecture: vector catch
+    Finished release [optimized + debuginfo] target(s) in 0.14s
+     Running `probe-rs run --chip STM32U585AIIx /home/kzm/Desktop/Git/embassy/examples/stm32u5/target/thum
+bv8m.main-none-eabihf/release/blinky`
+     Erasing sectors ✔ [00:00:00] [#########################] 24.00 KiB/24.00 KiB @ 301.78 KiB/s (eta 0s )
+ Programming pages   ✔ [00:00:00] [##########################] 20.00 KiB/20.00 KiB @ 36.86 KiB/s (eta 0s )
+    Finished in 0.641s
+0.000000 DEBUG rcc: Clocks { sys: Hertz(4000000), apb1: Hertz(4000000), apb1_tim: Hertz(4000000), apb2: He
+rtz(4000000), apb2_tim: Hertz(4000000), apb3: Hertz(4000000), ahb1: Hertz(4000000), ahb2: Hertz(4000000), 
+ahb3: Hertz(4000000) }
+└─ /home/kzm/Desktop/Git/embassy/embassy-stm32/src/fmt.rs:130
+0.000061 INFO Hello World!
+└─ blinky.rs:14   
+0.000305 INFO on! 
+└─ blinky.rs:19   
+0.200714 INFO off!
+└─ blinky.rs:23    
 ```
 
