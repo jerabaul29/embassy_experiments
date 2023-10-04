@@ -71,3 +71,8 @@ ahb3: Hertz(4000000) }
 └─ blinky.rs:23    
 ```
 
+### Starting a new embassy based project
+
+We assume that the current embassy_experiments repository is cloned in a Git folder alongside the embassy repository.
+
+See the examples/blink for a minimalistic example; you can for example copy-paste the 
