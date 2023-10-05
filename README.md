@@ -6,7 +6,7 @@ My embassy experiments
 
 ### Rust
 
-Install Rust, preferably nightly. See https://www.rust-lang.org/tools/install . Install rustup https://rustup.rs/ . Remember ```rustup update``` regularly.
+Install Rust, you will need nightly. See https://www.rust-lang.org/tools/install . Install rustup https://rustup.rs/ . Remember ```rustup update``` regularly.
 
 ### Editor
 
@@ -17,12 +17,12 @@ Install Rust, preferably nightly. See https://www.rust-lang.org/tools/install . 
 ### Embassy
 
 - follow installation instructions at https://embassy.dev/book/dev/getting_started.html .
-- install probe-run, both the necessary dependencies and the package itself: ```cargo install probe-run --features cli``` . Note that you may need to install the newest probe-rs in the newest version if the chip you use is very recent and not yet included in the probe-rs current release: ```https://github.com/probe-rs/probe-rs```.
+- install probe-run, both the necessary dependencies and the package itself: ```cargo install probe-run --features cli``` .
 - follow the installation instruction.
 
-### Check that everything works
+### Check that everything works in the embassy repo
 
-I have a stm32u5 board - but you may want to use another board depending on what you have. More specifically, my board is a nucleo board with a stm32u5a5zj chip, so I do a couple of edits to the config:
+- I have a stm32u5 board - but you may want to use another board depending on what you have. More specifically, my board is a nucleo board with a stm32u5a5zj chip, so I do a couple of edits to the config:
 
 ```
 kzm@kzm-bpq:~/Desktop/Git/embassy/examples/stm32u5$ git diff Cargo.toml
@@ -32,10 +32,12 @@ kzm@kzm-bpq:~/Desktop/Git/embassy/examples/stm32u5$ git diff Cargo.toml
 +embassy-stm32 = { version = "0.1.0", path = "../../embassy-stm32", features = ["nightly", "defmt", "unstable-pac", "stm32u5a5zj", "time-driver-any", "memory-x" ]  }
 ```
 
+Remember to also update the ```.target/config.toml```.
+
 I can then for example choose the blinky binary and check that it compiles:
 
 ```
-kzm@kzm-bpq:~/Desktop/Git/embassy/examples/stm32u5/src/bin$ cargo build --bin blinky --release
+kzm@kzm-bpq:~/Desktop/Git/embassy/examples/stm32u5/src/bin$ cargo +nightly build --bin blinky --release
     Finished release [optimized + debuginfo] target(s) in 0.14s
 ```
 
@@ -49,10 +51,10 @@ The following debug probes were found:
 [0]: STLink V3 (VID: 0483, PID: 374e, Serial: 001B00423232510139353236, StLink)
 ```
 
-- I can set the correct chip output: (note: seems like stm32u5a5 is not supported yet by probe-rs?)
+- I can set the correct chip output:
 
 ```
-kzm@kzm-bpq:~/Desktop/Git/embassy/examples/stm32u5/src/bin$ cargo run --bin blinky --release
+kzm@kzm-bpq:~/Desktop/Git/embassy/examples/stm32u5/src/bin$ cargo +nightly run --bin blinky --release
     Finished release [optimized + debuginfo] target(s) in 0.14s
      Running `probe-rs run --chip STM32U585AIIx /home/kzm/Desktop/Git/embassy/examples/stm32u5/target/thum
 bv8m.main-none-eabihf/release/blinky`
@@ -71,8 +73,21 @@ ahb3: Hertz(4000000) }
 └─ blinky.rs:23    
 ```
 
+
 ### Starting a new embassy based project
 
 We assume that the current embassy_experiments repository is cloned in a Git folder alongside the embassy repository.
 
 See the examples/blink for a minimalistic example; you can for example copy-paste the 
+
+- install the target
+
+```
+kzm@kzm-bpq:~/Desktop/Git/embassy_experiments/examples/blink$ rustup target add thumbv8m.main-none-eabihf
+```
+
+- compile, may need nightly
+
+```
+kzm@kzm-bpq:~/Desktop/Git/embassy_experiments/examples/blink$ cargo +nightly build --bin blinky --release
+```
