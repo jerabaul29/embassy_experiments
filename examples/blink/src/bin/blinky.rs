@@ -13,7 +13,7 @@ async fn main(_spawner: Spawner) -> ! {
     let p = embassy_stm32::init(Default::default());
     info!("Hello World!");
 
-    let mut led = Output::new(p.PH7, Level::Low, Speed::Medium);
+    let mut led = Output::new(p.PC7, Level::Low, Speed::Medium);
 
     loop {
         defmt::info!("on!");
