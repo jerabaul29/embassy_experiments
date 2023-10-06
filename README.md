@@ -13,6 +13,8 @@ Install Rust, you will need nightly. See https://www.rust-lang.org/tools/install
 - helix: https://github.com/helix-editor/helix
 - rust-analyzer (as currently recommended by helix): https://github.com/rust-lang/rust-analyzer ; for now: ```rustup component add rust-analyzer``` .
 - check health: ```helix --health```
+- ```kzm@kzm-bpq:~$ hlxx --grammar fetch```
+- ```kzm@kzm-bpq:~$ hlxx --grammar build```
 
 ### Embassy
 
